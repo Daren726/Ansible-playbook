@@ -1,0 +1,16 @@
+---
+# tasks file for fstab-mount
+
+- name: Create dir
+  file:
+   path: "{{ mount_path }}"
+   state: directory
+  become: yes
+  
+- name: Add new device to ftsab file
+  lineinfile:
+   path: /etc/fstab
+   line: "UUID={{ device_uuid }}	{{ mount_path }}	ext4	defaults	0 2"
+  become: yes
+  
+  

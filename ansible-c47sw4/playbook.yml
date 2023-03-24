@@ -1,0 +1,35 @@
+---
+- name: Samba dir share
+  hosts: all
+  become: yes
+  vars:
+   install_service_name: samba
+   samba_share_path: /data/fontos
+   samba_share_name: fontos
+   samba_share_user: fonok
+   samba_share_mode: '0777'
+  roles:
+   - install-service
+   - samba-share
+   
+- name: fstab mount
+  hosts: local
+  become: yes
+  vars:
+   mount_path: /data/speci
+   device_uuid: 'e23b143h-d3d4-4404-9078-fb34h5g61c0d'
+  roles:
+   - fstab-mount
+   
+- name: Create directory with permission and owner
+  hosts: server
+  become: yes
+  vars:
+   directory_path: /data/apple
+   directory_owner: student
+   directory_group: student
+   directory_mode: '0777'
+  roles:
+   - create-dir-perm-own
+   
+              

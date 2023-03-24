@@ -1,0 +1,8 @@
+---
+# handlers file for fstab-mount
+
+- name: restart
+  service:
+   name: fs
+   state: restarted
+  become: yes

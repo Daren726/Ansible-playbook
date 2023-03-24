@@ -1,0 +1,25 @@
+---
+# tasks file for samba-share
+
+- name: Create dir
+  file:
+   path: "{{samba_share_path}}"
+   state: directory
+   mode: "{{samba_share_mode}}"
+  become: yes
+  
+- name: Create user 
+  ansible.builtin.user:
+   name: "{{samba_share_user}}"
+  
+- name: Samba share dir
+  lineinfile:
+   path: /etc/samba/smb.conf
+   line: "{{ item }}"
+  with_items:
+  - '[{{ samba_share_name }}]'
+  - '	path = {{ samba_share_path }}'
+  - '	writeable = yes'
+  - '	valid users = {{ samba_share_user }}'
+  become: yes
+  notify: restart samba

@@ -1,0 +1,8 @@
+---
+# handlers file for samba-share
+
+- name: restart samba
+  service:
+   name: smb
+   state: restarted
+  become: yes

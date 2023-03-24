@@ -1,0 +1,8 @@
+---
+# tasks file for install-service
+
+- name: Install service
+  yum:
+   name: "{{install_service_name}}"
+   state: present
+  become: yes
